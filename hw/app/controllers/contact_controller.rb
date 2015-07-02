@@ -5,7 +5,7 @@ class ContactController < ApplicationController
   end
   
   def display_submission
-    render "contact_submission"
+    render "display_submission"
   end
 
 end
