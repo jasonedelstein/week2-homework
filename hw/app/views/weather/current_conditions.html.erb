@@ -1,0 +1,18 @@
+<%
+
+require 'open-uri'
+require 'json'
+
+location = URI.escape(params["city"])
+
+json_data = open("http://api.openweathermap.org/data/2.5/weather?q=#{location}&units=imperial").read
+
+data = JSON.parse(json_data)
+
+temp = data["main"]["temp"]
+
+%>
+
+<h1>Current conditions below!</h1>
+
+<p>Your city of <%=params["city"] %> has a temperature of <%=temp.round(1) %>&deg;.</p>
