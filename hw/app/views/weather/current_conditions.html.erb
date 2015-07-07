@@ -9,10 +9,28 @@ json_data = open("http://api.openweathermap.org/data/2.5/weather?q=#{location}&u
 
 data = JSON.parse(json_data)
 
-temp = data["main"]["temp"]
-
+if ( !data["main"].nil? )
+	temp = data["main"]["temp"]
+	humidity = data["main"]["humidity"]
+	pressure = data["main"]["pressure"]
+else
+	badcity = true
+end
+	
 %>
 
-<h1>Current conditions below!</h1>
+<% if !badcity %>
+
+<h1>Current temperature conditions below!</h1>
 
 <p>Your city of <%=params["city"] %> has a temperature of <%=temp.round(1) %>&deg;.</p>
+<p>Its humidity is <%=humidity%>%.</p>
+<p>Its pressure is <%=pressure%>, which is in mmhg. I think. Thank goodness I'm rated on my ruby and not my weather knowledge.</p>
+<p>Here's the raw API response, if you're curious or debugging:<p>
+<p><%=data%></p>
+
+<% else %>
+
+<h1>You got some funky stuff going on there, son. That ain't no city I ever heard of. Are you being perfectly honest with me?</h1>
+
+<% end %>
